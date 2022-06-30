@@ -72,10 +72,10 @@ test_path = "data\\test.tsv"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-max_n", default=2, type=int, help="size of n-gram model")
-parser.add_argument("-max_feature", default=50000, type=int, help="max size of n-gram model")
+parser.add_argument("-max_feature", default=None, type=int, help="max size of n-gram model")
 parser.add_argument("-classifier", default="SGD", help="which classifier to choose")
-parser.add_argument("-alpha", default=0.001, help="SGD alpha")
-parser.add_argument("-max_iter", default=1000, help="SGD iteration times")
+parser.add_argument("-alpha", default=0.001, type=float, help="SGD alpha")
+parser.add_argument("-max_iter", default=1000, type=int, help="SGD iteration times")
 
 if __name__ == '__main__':
 
@@ -97,7 +97,7 @@ if __name__ == '__main__':
         print("No such classifier! Exit")
         sys.exit(1)
 
-    feature, label = data.feature_extract(max_n, False)
+    feature, label = data.feature_extract(max_n, True)
     train_x, valid_x, train_y, valid_y = train_test_split(feature, label, test_size=0.2)
 
     clf = train(train_x, train_y, clf)

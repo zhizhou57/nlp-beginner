@@ -58,10 +58,19 @@ TF-IDF=TF(词频)*IDF(逆文档频率)
 
 1. 利用词袋模型或者n-gram模型，表示出句子的feature
 2. 用shuttle划分训练集、验证集，也可采用N-fold
-3. 将feature、label丢给softmax或SGD去训练
-4. 调参，获取较好的结果（未细调，精确度大概55%）
+3. 将feature、label丢给softmax或SGD（alpha, max_iter）去训练
+4. 调参，获取较好的结果（不使用tf-idf最高精确度为55.8%,使用tf-idf最高精度为50.9%）
+    
+    max_n: 2，n-gram的范围设置，过大时消耗内存而精确度提升不大
+    
+    max_feature: 50000，最大特征数，过多时消耗内存而精确度提升不大
+    
+    max_iter设置为1000， sklearn中存在early-stopping机制（在patience个epoch中，loss的下降值均小于min_delta，则停止训练），无需调整
+    
+    alpha：0.001
+    
 
 ### 未解决的问题
 
+- 为什么使用了tf-idf后分类精度反而下降了
 - 除了TF-IDF、n-gram有没有其他的文本特征适用于分类
-- 调参绘图
